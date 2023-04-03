@@ -4,20 +4,28 @@ class Solution {
 public:
     static std::vector<int> plusOne(std::vector<int>& digits) 
     {
+       
         if (digits.empty())
             return digits;
+        int size = digits.size();
 
-        for (int i = digits.size() - 1; i >= 0; i--)
+        for (int i = size - 1; i >= 0; i--)
         {
-            if (digits[i] == 9)
-            {
-                digits[i] = 1;
-                digits.push_back(0);
-            }
-            else
-            {
+            if (i == size - 1)
                 digits[i] += 1;
-                break;
+
+            if (digits[i] == 10)
+            {
+                digits[i] = 0;
+                if (i != 0)
+                {
+                    digits[i - 1] += 1;
+                }
+                else
+                {
+                    digits.push_back(0);
+                    digits[i] = 1;
+                }
             }
         }
         return digits;
@@ -39,7 +47,7 @@ public:
 
 int main()
 {
-    std::vector<int> input = { 9};
+    std::vector<int> input = { 9,9};
     Solution::plusOne(input);
     Solution::print(input);
 
